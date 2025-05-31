@@ -12,7 +12,7 @@ class CharacterStats:
     invulnerable: bool = False
     invulnerable_time: float = 0
 
-    def take_damage(self, amount: int):
+    def take_damage(self, amount: int) -> bool:
         if not self.invulnerable:
             self.health -= amount
             self.invulnerable = True
@@ -21,7 +21,7 @@ class CharacterStats:
             return self.health <= 0
         return False
 
-    def gain_xp(self, amount: int):
+    def gain_xp(self, amount: int) -> None:
         self.xp += amount
         xp_to_level = 100 + (self.level - 1) * 20
         if self.xp >= xp_to_level:

@@ -30,13 +30,13 @@ class Entity(arcade.Sprite):
 
         self.is_moving = False
 
-    def _load_animation(self, folder):
+    def _load_animation(self, folder) -> dict[str, list[arcade.Texture]]:
         frames = sorted(folder.glob("*.png"))
         original = [arcade.load_texture(str(f)) for f in frames]
         flipped = [arcade.load_texture(str(f), mirrored=True) for f in frames]
         return {"right": original, "left": flipped}
 
-    def set_movement_state(self, is_moving: bool):
+    def set_movement_state(self, is_moving: bool) -> None:
         if self.is_moving != is_moving:
             self.is_moving = is_moving
             base_textures = self.running_textures if is_moving else self.idle_textures
@@ -45,7 +45,7 @@ class Entity(arcade.Sprite):
             self.time_since_last_frame = 0
             self.texture = self.current_textures[0]
 
-    def update_animation(self, delta_time: float = 1 / 60):
+    def update_animation(self, delta_time: float = 1 / 60) -> None:
         self.time_since_last_frame += delta_time
 
         if self.time_since_last_frame > ANIMATION_SPEED:
@@ -53,7 +53,7 @@ class Entity(arcade.Sprite):
             self.texture = self.current_textures[self.current_frame_index]
             self.time_since_last_frame = 0
 
-    def set_direction(self, dx: float):
+    def set_direction(self, dx: float) -> None:
         if dx > 0:
             new_facing = "right"
         elif dx < 0:
@@ -85,5 +85,5 @@ class Entity(arcade.Sprite):
         return self.stats.xp
 
     @property
-    def level(self):
+    def level(self) -> int:
         return self.stats.level

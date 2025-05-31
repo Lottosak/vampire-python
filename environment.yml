@@ -1,0 +1,9 @@
+name: vampire-game
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - arcade==2.6.17
+      - numpy

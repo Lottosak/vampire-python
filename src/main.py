@@ -2,6 +2,7 @@ import arcade
 
 from game import VampireGame
 
+
 def main():
     game = VampireGame()
     game.setup()

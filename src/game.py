@@ -7,6 +7,7 @@ SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 800
 SCREEN_TITLE = "Vampire Survivors Clone"
 
+
 class VampireGame(arcade.Window):
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
@@ -18,7 +19,6 @@ class VampireGame(arcade.Window):
         self.enemy_spawn_timer = 0.0
         self.enemy_spawn_interval = 1.5
         self.enemy_list = arcade.SpriteList()
-
 
     def setup(self):
         """Initial setup of the game"""
@@ -33,8 +33,9 @@ class VampireGame(arcade.Window):
         self.draw_hud()
 
     def draw_hud(self):
-        arcade.draw_text(f"HP: {self.player.health}/{self.player.max_health}", 10, self.height - 20,
-                         arcade.color.WHITE, 14)
+        arcade.draw_text(
+            f"HP: {self.player.health}/{self.player.max_health}", 10, self.height - 20, arcade.color.WHITE, 14
+        )
         arcade.draw_text(f"Level: {self.player.level}", 10, self.height - 40, arcade.color.WHITE, 14)
         arcade.draw_text(f"XP: {self.player.xp}", 10, self.height - 60, arcade.color.WHITE, 14)
 
@@ -61,9 +62,7 @@ class VampireGame(arcade.Window):
         self.enemy_spawn_timer += delta_time
         if self.enemy_spawn_timer > self.enemy_spawn_interval:
             self.enemy_spawn_timer = 0
-            self.enemy_list.append(
-                self.spawner.spawn_enemy((self.player.center_x,self.player.center_y))
-            )
+            self.enemy_list.append(self.spawner.spawn_enemy((self.player.center_x, self.player.center_y)))
 
     def on_key_press(self, key, modifiers):
         self.keys.add(key)

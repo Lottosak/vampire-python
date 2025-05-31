@@ -2,7 +2,6 @@ import arcade
 
 from player import Player
 
-# Constants for screen size
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Vampire Survivors Clone"
@@ -23,18 +22,25 @@ class VampireGame(arcade.Window):
         """Render the screen"""
         arcade.start_render()
         self.player.draw()
+        self.draw_hud()
+
+    def draw_hud(self):
+        arcade.draw_text(f"HP: {self.player.health}/{self.player.max_health}", 10, self.height - 20,
+                         arcade.color.WHITE, 14)
+        arcade.draw_text(f"Level: {self.player.level}", 10, self.height - 40, arcade.color.WHITE, 14)
+        arcade.draw_text(f"XP: {self.player.xp}", 10, self.height - 60, arcade.color.WHITE, 14)
 
     def on_update(self, delta_time):
         dx = 0
         dy = 0
         if arcade.key.W in self.keys:
-            dy += self.player.getSpeed() * delta_time
+            dy += self.player.speed * delta_time
         if arcade.key.S in self.keys:
-            dy -= self.player.getSpeed() * delta_time
+            dy -= self.player.speed * delta_time
         if arcade.key.A in self.keys:
-            dx -= self.player.getSpeed() * delta_time
+            dx -= self.player.speed * delta_time
         if arcade.key.D in self.keys:
-            dx += self.player.getSpeed() * delta_time
+            dx += self.player.speed * delta_time
 
         self.player.center_x += dx
         self.player.center_y += dy

@@ -73,8 +73,8 @@ vampire-clone-arcade/
 
 ## ✅ TODO / Roadmap
 - [x] Set up Conda environment
-- [ ] Create game window and main loop
-- [ ] Player movement and sprite
+- [x] Create game window and main loop
+- [x] Player movement and sprite
 - [ ] Auto-attacks and projectiles
 - [ ] Enemy AI and spawning
 - [ ] XP system and leveling
@@ -86,3 +86,5 @@ vampire-clone-arcade/
 Inspired by Vampire Survivors
 
 Developed for learning and fun ✨
+
+Free sprites from craftprix.net

@@ -1,6 +1,8 @@
 import arcade
 from pathlib import Path
 
+from stats import CharacterStats
+
 PLAYER_SCALING = 0.1
 CURRENT_DIR = Path(__file__).resolve().parent
 SPRITE_PATH = CURRENT_DIR.parent / "assets" / "sprites"
@@ -15,11 +17,18 @@ class Player(arcade.Sprite):
             center_y=center_y
         )
 
+        self.stats = CharacterStats(
+            max_health=100,
+            health=100,
+            speed=200,
+            damage=10
+        )
+
         running_folder = SPRITE_PATH / "player" / "running"
         idle_folder = SPRITE_PATH / "player" / "idle"
 
-        self.running_textures = self._load_animation(running_folder)
-        self.idle_textures = self._load_animation(idle_folder)
+        self.running_textures = self.__load_animation(running_folder)
+        self.idle_textures = self.__load_animation(idle_folder)
 
         self.facing = "right"
         self.current_textures = self.idle_textures[self.facing]
@@ -29,7 +38,7 @@ class Player(arcade.Sprite):
 
         self.is_moving = False
 
-    def _load_animation(self, folder):
+    def __load_animation(self, folder):
         frames = sorted(folder.glob(f"*.png"))
         original = [arcade.load_texture(str(f)) for f in frames]
         flipped = [arcade.load_texture(str(f), mirrored=True) for f in frames]
@@ -67,6 +76,23 @@ class Player(arcade.Sprite):
             self.current_frame_index = 0
             self.texture = self.current_textures[0]
 
-    def getSpeed(self) -> float:
-        return 200.0
+    @property
+    def speed(self) -> float:
+        return self.stats.speed
+
+    @property
+    def health(self) -> int:
+        return self.stats.health
+
+    @property
+    def max_health(self) -> int:
+        return self.stats.max_health
+
+    @property
+    def xp(self) -> int:
+        return self.stats.xp
+
+    @property
+    def level(self):
+        return self.stats.level
 

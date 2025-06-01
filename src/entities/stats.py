@@ -15,8 +15,6 @@ class CharacterStats:
     def take_damage(self, amount: int) -> bool:
         if not self.invulnerable:
             self.health -= amount
-            self.invulnerable = True
-            self.invulnerable_time = 1.0  # seconds of i-frames
             print(
                 f"Character took {amount} damage. HP: {self.health}/{self.max_health}"
             )

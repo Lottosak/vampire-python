@@ -31,6 +31,8 @@ class VampireGame(arcade.Window):
         self.player.draw()
         self.enemy_list.draw()
         self.draw_hud()
+        for weapon in self.player.get_weapons():
+            weapon.draw()
 
     def draw_hud(self) -> None:
         arcade.draw_text(
@@ -49,6 +51,9 @@ class VampireGame(arcade.Window):
 
     def on_update(self, delta_time: float):
         self.player.update_position(delta_time)
+        for weapon in self.player.get_weapons():
+            weapon.update(delta_time, self.enemy_list)
+
         self.enemy_spawn_timer += delta_time
         if self.enemy_spawn_timer > self.enemy_spawn_interval:
             self.enemy_spawn_timer = 0
@@ -58,9 +63,7 @@ class VampireGame(arcade.Window):
             enemy.follow_player(delta_time)
 
     def on_key_press(self, symbol: int, modifiers: int) -> None:
-        print(f"key: {symbol}, modifiers: {modifiers}")
         self.player.on_key_press(symbol)
 
     def on_key_release(self, symbol: int, modifiers: int) -> None:
         self.player.on_key_release(symbol)
-        pass

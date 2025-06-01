@@ -3,6 +3,8 @@ from pathlib import Path
 import arcade
 
 from src.entities.entity import Entity
+from src.weapons.weapon import Weapon
+from src.weapons.slash_weapon import SlashWeapon
 
 CURRENT_DIR = Path(__file__).resolve().parent.parent
 SPRITE_PATH = CURRENT_DIR.parent / "assets" / "sprites"
@@ -20,6 +22,9 @@ class Player(Entity):
         self.move_down = False
         self.move_left = False
         self.move_right = False
+
+        self.__weapons: list[Weapon] = []
+        self.__weapons.append(SlashWeapon(self))
 
     def update_position(self, delta_time: float) -> None:
         dx = 0
@@ -60,3 +65,6 @@ class Player(Entity):
             self.move_left = False
         if key == arcade.key.D:
             self.move_right = False
+
+    def get_weapons(self) -> list[Weapon]:
+        return self.__weapons

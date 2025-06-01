@@ -3,6 +3,7 @@ from pathlib import Path
 import arcade
 
 from src.entities.stats import CharacterStats
+from src.utilities import load_animation
 
 ENTITY_SCALING_FACTOR = 0.1
 ANIMATION_SPEED = 0.05
@@ -23,8 +24,8 @@ class Entity(arcade.Sprite):
 
         self.stats = CharacterStats(max_health=100, health=100, speed=200, damage=10)
 
-        self.running_textures = self._load_animation(running_assets_folder)
-        self.idle_textures = self._load_animation(idle_assets_folder)
+        self.running_textures = load_animation(running_assets_folder)
+        self.idle_textures = load_animation(idle_assets_folder)
 
         self.facing = "right"
         self.current_textures = self.idle_textures[self.facing]
@@ -76,6 +77,10 @@ class Entity(arcade.Sprite):
             self.current_frame_index = 0
             self.texture = self.current_textures[0]
 
+    def take_damage(self, damage: int) -> None:
+        if self.stats.take_damage(damage):
+            print("entity died")
+
     @property
     def speed(self) -> float:
         return self.stats.speed
@@ -95,3 +100,11 @@ class Entity(arcade.Sprite):
     @property
     def level(self) -> int:
         return self.stats.level
+
+    @property
+    def facing_direction(self) -> tuple[int, int] | None:
+        if self.facing == "right":
+            return 1, 0
+        elif self.facing == "left":
+            return -1, 0
+        return None

@@ -15,7 +15,11 @@ class Entity(arcade.Sprite):
         running_assets_folder: Path,
         idle_assets_folder: Path,
     ):
-        super().__init__(scale=ENTITY_SCALING_FACTOR, center_x=init_position[0], center_y=init_position[1])
+        super().__init__(
+            scale=ENTITY_SCALING_FACTOR,
+            center_x=init_position[0],
+            center_y=init_position[1],
+        )
 
         self.stats = CharacterStats(max_health=100, health=100, speed=200, damage=10)
 
@@ -49,7 +53,9 @@ class Entity(arcade.Sprite):
         self.time_since_last_frame += delta_time
 
         if self.time_since_last_frame > ANIMATION_SPEED:
-            self.current_frame_index = (self.current_frame_index + 1) % len(self.current_textures)
+            self.current_frame_index = (self.current_frame_index + 1) % len(
+                self.current_textures
+            )
             self.texture = self.current_textures[self.current_frame_index]
             self.time_since_last_frame = 0
 
@@ -63,7 +69,9 @@ class Entity(arcade.Sprite):
 
         if new_facing != self.facing:
             self.facing = new_facing
-            base_textures = self.running_textures if self.is_moving else self.idle_textures
+            base_textures = (
+                self.running_textures if self.is_moving else self.idle_textures
+            )
             self.current_textures = base_textures[self.facing]
             self.current_frame_index = 0
             self.texture = self.current_textures[0]

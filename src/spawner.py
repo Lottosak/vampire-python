@@ -34,8 +34,8 @@ class Spawner:
         spawn_position = self.get_spawn_position_around_player()
 
         # TODO: for now spawn same sprites as player, later choose what enemy to spawn
-        enemy_running_textures = SPRITE_PATH / "player" / "running"
-        enemy_idle_textures = SPRITE_PATH / "player" / "idle"
+        enemy_running_textures = SPRITE_PATH / "skeleton" / "running"
+        enemy_idle_textures = SPRITE_PATH / "skeleton" / "idle"
 
         return Enemy(
             init_position=spawn_position,

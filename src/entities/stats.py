@@ -17,7 +17,9 @@ class CharacterStats:
             self.health -= amount
             self.invulnerable = True
             self.invulnerable_time = 1.0  # seconds of i-frames
-            print(f"Character took {amount} damage. HP: {self.health}/{self.max_health}")
+            print(
+                f"Character took {amount} damage. HP: {self.health}/{self.max_health}"
+            )
             return self.health <= 0
         return False
 
